@@ -3,9 +3,10 @@ import { cn } from '@/lib/utils'
 
 interface LanguageToggleProps {
   className?: string
+  darkText?: boolean
 }
 
-export function LanguageToggle({ className }: LanguageToggleProps) {
+export function LanguageToggle({ className, darkText = false }: LanguageToggleProps) {
   const { locale, toggleLocale } = useI18n()
 
   return (
@@ -13,12 +14,13 @@ export function LanguageToggle({ className }: LanguageToggleProps) {
       type="button"
       onClick={toggleLocale}
       aria-label={locale === 'es' ? 'Switch to English' : 'Cambiar a español'}
-      aria-pressed={locale === 'en'}
       className={cn(
-        'p-2 rounded-md',
-        'text-gray-300 hover:text-white hover:bg-white/10',
+        'px-2 py-1.5 rounded-lg',
         'transition-colors duration-200',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+        darkText
+          ? 'text-gray-500 hover:text-primary hover:bg-primary/5'
+          : 'text-gray-300 hover:text-white hover:bg-white/10',
         className,
       )}
     >

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { LanguageToggle } from '@/components/ui/LanguageToggle'
 import { useI18n } from '@/i18n'
+import { useTheme } from '@/theme'
 
 const WHATSAPP_LINK =
   'https://wa.me/573169535314?text=Hola,%20me%20interesa%20saber%20más%20sobre%20sus%20servicios%20de%20desarrollo%20de%20software'
@@ -16,7 +17,6 @@ interface NavLink {
   href: string
 }
 
-// Variantes de animación para el menú móvil
 const mobileMenuVariants = {
   closed: {
     opacity: 0,
@@ -49,9 +49,15 @@ const mobileLinkVariants = {
 
 export function Navbar() {
   const { t } = useI18n()
+  const { theme } = useTheme()
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const isLight = theme === 'light'
+
+  // Texto oscuro cuando: estamos scrolled en light mode
+  const useDarkText = isScrolled && isLight
 
   const navLinks: NavLink[] = [
     { label: t.nav.inicio, href: '/' },
@@ -61,47 +67,37 @@ export function Navbar() {
     { label: t.nav.contacto, href: '/contacto' },
   ]
 
-  // Detectar scroll para cambiar el fondo del navbar
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
-    }
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Cerrar el menú móvil al redimensionar la ventana hacia desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        setIsMobileMenuOpen(false)
-      }
+      if (window.innerWidth >= 768) setIsMobileMenuOpen(false)
     }
-
     window.addEventListener('resize', handleResize, { passive: true })
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Cerrar menú móvil al cambiar de ruta
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    window.scrollTo(0, 0)
   }, [location.pathname])
 
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev)
-
-  const handleNavLinkClick = () => {
-    setIsMobileMenuOpen(false)
-  }
 
   return (
     <header
       className={cn(
         'fixed top-0 left-0 right-0 z-50',
-        'transition-all duration-300 ease-in-out',
+        'transition-all duration-500 ease-out',
         isScrolled
-          ? 'bg-dark/80 backdrop-blur-xl shadow-2xl shadow-black/30 border-b border-white/10'
-          : 'bg-transparent'
+          ? isLight
+            ? 'bg-white/80 backdrop-blur-2xl shadow-lg shadow-black/[0.04] border-b border-gray-200/50'
+            : 'bg-dark/80 backdrop-blur-2xl shadow-2xl shadow-black/30 border-b border-white/10'
+          : 'bg-transparent',
       )}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -109,13 +105,16 @@ export function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
+            className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
             aria-label="SPEAK.CO - Ir al inicio"
           >
             <img
               src="/images/logo.png"
               alt="SPEAK.CO®"
-              className="h-8 md:h-10 w-auto"
+              className={cn(
+                'h-8 md:h-10 w-auto transition-all duration-300',
+                useDarkText && 'brightness-0',
+              )}
             />
           </Link>
 
@@ -128,22 +127,38 @@ export function Navbar() {
                   <Link
                     to={link.href}
                     className={cn(
-                      'px-3 py-2 rounded-md text-sm font-medium',
-                      'transition-colors duration-200',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
-                      isActive ? 'text-white' : 'text-gray-300 hover:text-white'
+                      'relative px-3 py-2 rounded-lg text-sm font-medium',
+                      'transition-all duration-200',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                      useDarkText
+                        ? isActive
+                          ? 'text-primary'
+                          : 'text-gray-600 hover:text-primary hover:bg-primary/5'
+                        : isActive
+                          ? 'text-white'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10',
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
                     {link.label}
+                    {isActive && (
+                      <motion.div
+                        layoutId="nav-indicator"
+                        className={cn(
+                          'absolute bottom-0 left-3 right-3 h-0.5 rounded-full',
+                          useDarkText ? 'bg-primary' : 'bg-white',
+                        )}
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
                   </Link>
                 </li>
               )
             })}
           </ul>
 
-          {/* CTA desktop + toggle de tema + botón hamburguesa mobile */}
-          <div className="flex items-center gap-3">
+          {/* Controles derecha */}
+          <div className="flex items-center gap-2">
             <Button
               asChild
               href={WHATSAPP_LINK}
@@ -151,28 +166,30 @@ export function Navbar() {
               size="sm"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:inline-flex"
+              className={cn(
+                'hidden md:inline-flex',
+                'shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30',
+              )}
             >
               {t.nav.agendar}
             </Button>
 
-            {/* Toggle de tema — visible en todos los tamaños */}
-            <ThemeToggle />
+            <ThemeToggle darkText={useDarkText} />
+            <LanguageToggle darkText={useDarkText} />
 
-            {/* Toggle de idioma — visible en todos los tamaños */}
-            <LanguageToggle />
-
-            {/* Botón hamburguesa — solo mobile */}
+            {/* Hamburguesa mobile */}
             <button
               type="button"
               onClick={toggleMobileMenu}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
               className={cn(
-                'md:hidden p-2 rounded-md',
-                'text-gray-300 hover:text-white hover:bg-white/10',
+                'md:hidden p-2 rounded-lg',
                 'transition-colors duration-200',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white'
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                useDarkText
+                  ? 'text-gray-600 hover:text-primary hover:bg-primary/5'
+                  : 'text-gray-300 hover:text-white hover:bg-white/10',
               )}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -214,7 +231,12 @@ export function Navbar() {
             animate="open"
             exit="closed"
             variants={mobileMenuVariants}
-            className="md:hidden overflow-hidden bg-dark/98 backdrop-blur-md border-t border-white/5"
+            className={cn(
+              'md:hidden overflow-hidden border-t',
+              isLight
+                ? 'bg-white/95 backdrop-blur-2xl border-gray-200/50'
+                : 'bg-dark/98 backdrop-blur-md border-white/5',
+            )}
           >
             <nav className="px-4 pt-3 pb-6 space-y-1" aria-label="Menú móvil">
               {navLinks.map((link) => {
@@ -223,15 +245,19 @@ export function Navbar() {
                   <motion.div key={link.href} variants={mobileLinkVariants}>
                     <Link
                       to={link.href}
-                      onClick={handleNavLinkClick}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       aria-current={isActive ? 'page' : undefined}
                       className={cn(
-                        'block px-4 py-3 rounded-lg text-base font-medium',
+                        'block px-4 py-3 rounded-xl text-base font-medium',
                         'transition-colors duration-200',
-                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
-                        isActive
-                          ? 'text-white bg-white/8'
-                          : 'text-gray-300 hover:text-white hover:bg-white/8'
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+                        isLight
+                          ? isActive
+                            ? 'text-primary bg-primary/5'
+                            : 'text-gray-700 hover:text-primary hover:bg-primary/5'
+                          : isActive
+                            ? 'text-white bg-white/8'
+                            : 'text-gray-300 hover:text-white hover:bg-white/8',
                       )}
                     >
                       {link.label}
@@ -248,8 +274,8 @@ export function Navbar() {
                   size="md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full"
-                  onClick={handleNavLinkClick}
+                  className="w-full shadow-md shadow-primary/20"
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t.nav.agendar}
                 </Button>

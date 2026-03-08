@@ -3,8 +3,6 @@ import { Sun, Moon } from 'lucide-react'
 import { useTheme } from '@/theme'
 import { cn } from '@/lib/utils'
 
-// ─── Variantes de animación ───────────────────────────────────────────────────
-
 const iconVariants = {
   initial: { opacity: 0, rotate: -90, scale: 0.6 },
   animate: {
@@ -21,13 +19,12 @@ const iconVariants = {
   },
 }
 
-// ─── Componente ──────────────────────────────────────────────────────────────
-
 interface ThemeToggleProps {
   className?: string
+  darkText?: boolean
 }
 
-export function ThemeToggle({ className }: ThemeToggleProps) {
+export function ThemeToggle({ className, darkText = false }: ThemeToggleProps) {
   const { theme, toggleTheme } = useTheme()
   const isDark = theme === 'dark'
 
@@ -38,10 +35,12 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
       aria-label={isDark ? 'Activar modo claro' : 'Activar modo oscuro'}
       aria-pressed={isDark}
       className={cn(
-        'relative p-2 rounded-md',
-        'text-gray-300 hover:text-white hover:bg-white/10',
+        'relative p-2 rounded-lg',
         'transition-colors duration-200',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
+        darkText
+          ? 'text-gray-500 hover:text-primary hover:bg-primary/5'
+          : 'text-gray-300 hover:text-white hover:bg-white/10',
         className,
       )}
     >
@@ -56,7 +55,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             className="block"
             aria-hidden="true"
           >
-            <Sun size={20} strokeWidth={1.75} />
+            <Sun size={18} strokeWidth={1.75} />
           </motion.span>
         ) : (
           <motion.span
@@ -68,7 +67,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             className="block"
             aria-hidden="true"
           >
-            <Moon size={20} strokeWidth={1.75} />
+            <Moon size={18} strokeWidth={1.75} />
           </motion.span>
         )}
       </AnimatePresence>
