@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 // ─── Variantes de animación ────────────────────────────────────────────────
 
@@ -24,6 +25,7 @@ const staggerContainer = {
 // ─── Bloque 1 — Diferencial & Continuidad ─────────────────────────────────
 
 function DiferencialBlock(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div
       className={cn(
@@ -57,7 +59,7 @@ function DiferencialBlock(): React.ReactElement {
           className="mb-4 text-sm font-semibold uppercase tracking-widest"
           style={{ color: 'var(--color-accent)' }}
         >
-          Diferencial
+          {t.differentials.label}
         </motion.p>
 
         {/* Título principal */}
@@ -65,7 +67,7 @@ function DiferencialBlock(): React.ReactElement {
           variants={fadeInUp}
           className="mb-6 text-3xl font-bold text-white md:text-4xl"
         >
-          Diferencial &amp; Continuidad
+          {t.differentials.title}
         </motion.h2>
 
         {/* Separador */}
@@ -81,9 +83,7 @@ function DiferencialBlock(): React.ReactElement {
           className="text-lg leading-relaxed"
           style={{ color: 'var(--color-gray-300)' }}
         >
-          Modelo de desarrollo en software a medida con parámetros de expansión
-          continua: fases de actualización y etapas de versionamiento para
-          evolución constante.
+          {t.differentials.description}
         </motion.p>
       </motion.div>
     </div>
@@ -93,6 +93,7 @@ function DiferencialBlock(): React.ReactElement {
 // ─── Bloque 2 — Tecnología en el Desarrollo ───────────────────────────────
 
 function TecnologiaBlock(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div className="bg-white px-6 py-24">
       <motion.div
@@ -108,7 +109,7 @@ function TecnologiaBlock(): React.ReactElement {
           className="mb-4 text-sm font-semibold uppercase tracking-widest"
           style={{ color: 'var(--color-primary)' }}
         >
-          Eficiencia
+          {t.differentials.efficiencyLabel}
         </motion.p>
 
         {/* Título principal */}
@@ -117,7 +118,7 @@ function TecnologiaBlock(): React.ReactElement {
           className="mb-6 text-3xl font-bold md:text-4xl"
           style={{ color: 'var(--color-dark)' }}
         >
-          Tecnología en el Desarrollo
+          {t.differentials.efficiencyTitle}
         </motion.h2>
 
         {/* Separador */}
@@ -133,8 +134,7 @@ function TecnologiaBlock(): React.ReactElement {
           className="text-lg leading-relaxed"
           style={{ color: 'var(--color-gray-600)' }}
         >
-          Diseño de software a medida orientado en modelos de venta directa e
-          indirecta con sistemas B2C y B2B integrados.
+          {t.differentials.efficiencyDesc}
         </motion.p>
 
         {/* Tarjetas de pilares tecnológicos */}
@@ -142,14 +142,13 @@ function TecnologiaBlock(): React.ReactElement {
           variants={staggerContainer}
           className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3"
         >
-          {PILARES_TECNOLOGICOS.map((pilar) => (
+          {t.differentials.pillars.map((pilar) => (
             <motion.div
-              key={pilar.titulo}
+              key={pilar.icon}
               variants={fadeInUp}
-              className="rounded-2xl border p-6 text-left"
+              className="rounded-2xl border p-6 text-left backdrop-blur-sm bg-white/80 dark:bg-white/5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
               style={{
                 borderColor: 'var(--color-gray-200)',
-                backgroundColor: 'var(--color-light)',
               }}
             >
               <div
@@ -157,19 +156,19 @@ function TecnologiaBlock(): React.ReactElement {
                 style={{ backgroundColor: 'var(--color-primary)' }}
                 aria-hidden="true"
               >
-                {pilar.icono}
+                {pilar.icon}
               </div>
               <h3
                 className="mb-2 text-base font-semibold"
                 style={{ color: 'var(--color-dark)' }}
               >
-                {pilar.titulo}
+                {pilar.title}
               </h3>
               <p
                 className="text-sm leading-relaxed"
                 style={{ color: 'var(--color-gray-500)' }}
               >
-                {pilar.descripcion}
+                {pilar.description}
               </p>
             </motion.div>
           ))}
@@ -178,35 +177,6 @@ function TecnologiaBlock(): React.ReactElement {
     </div>
   );
 }
-
-// ─── Datos de pilares tecnológicos ────────────────────────────────────────
-
-interface PilarTecnologico {
-  icono: string;
-  titulo: string;
-  descripcion: string;
-}
-
-const PILARES_TECNOLOGICOS: PilarTecnologico[] = [
-  {
-    icono: 'B2C',
-    titulo: 'Venta Directa',
-    descripcion:
-      'Plataformas orientadas al consumidor final con experiencias fluidas y conversiones optimizadas.',
-  },
-  {
-    icono: 'B2B',
-    titulo: 'Venta Indirecta',
-    descripcion:
-      'Ecosistemas empresariales con integraciones nativas, APIs robustas y flujos de trabajo automatizados.',
-  },
-  {
-    icono: 'API',
-    titulo: 'Integración Total',
-    descripcion:
-      'Arquitectura de microservicios y APIs RESTful para interoperabilidad entre sistemas heterogéneos.',
-  },
-];
 
 // ─── Componente principal exportado ───────────────────────────────────────
 

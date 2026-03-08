@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
 
@@ -20,57 +21,17 @@ interface TrabajoCard {
   descripcion: string;
 }
 
-// ─── Datos de trabajos ─────────────────────────────────────────────────────
+// ─── Íconos en el mismo orden que t.portfolio.cards ────────────────────────
 
-const TRABAJOS: TrabajoCard[] = [
-  {
-    icono: GraduationCap,
-    titulo: 'Modelo Educativo en Línea 24/7',
-    descripcion:
-      'Integración de entornos inmersivos en experiencia educativa con procesos continuos acelerados y soporte multilínea 24/7.',
-  },
-  {
-    icono: ShoppingCart,
-    titulo: 'Sistema Multiventa Escalada',
-    descripcion:
-      'Comercio electrónico con escalabilidad exponencial usando AWS para alta demanda y peticiones concurrentes.',
-  },
-  {
-    icono: Brain,
-    titulo: 'Comercio con Selectividad IA',
-    descripcion:
-      'Reconocimiento de patrones de interés y selectividad de productos mediante algoritmos de IA para mejorar la experiencia de usuario.',
-  },
-  {
-    icono: Bot,
-    titulo: 'Asistencia IA 24/7',
-    descripcion:
-      'Sistemas evaluativos con aprendizaje continuo y progreso mediante machine learning para asistencia inteligente.',
-  },
-  {
-    icono: Leaf,
-    titulo: 'Going Green Solution',
-    descripcion:
-      'Soluciones de ingeniería comprometidas con el cambio climático y procesos de desarrollo sostenible.',
-  },
-  {
-    icono: MapPin,
-    titulo: 'Operatividad y Logística',
-    descripcion:
-      'Sistemas de despliegue en tiempo real con integración de mapas, rutas de acceso y tracking GPS.',
-  },
-  {
-    icono: Gamepad2,
-    titulo: 'Educación y Entretenimiento',
-    descripcion:
-      'Innovación educativa con videojuegos, elementos de realidad aumentada y aprendizaje acelerado.',
-  },
-  {
-    icono: BarChart3,
-    titulo: 'Escalabilidad y Rentabilidad',
-    descripcion:
-      'Optimización SEO/SEM con machine learning orientado a marketing, retargeting y métricas de campañas.',
-  },
+const ICONS: LucideIcon[] = [
+  GraduationCap,
+  ShoppingCart,
+  Brain,
+  Bot,
+  Leaf,
+  MapPin,
+  Gamepad2,
+  BarChart3,
 ];
 
 // ─── Variantes de animación ────────────────────────────────────────────────
@@ -117,23 +78,25 @@ function TrabajoCardItem({ trabajo }: CardProps): React.ReactElement {
     <motion.article
       variants={cardVariants}
       className={cn(
-        'group flex flex-col gap-4 rounded-2xl border bg-white p-6',
+        'group flex flex-col gap-4 rounded-2xl border p-6',
+        'bg-white dark:bg-white/5',
+        'border-gray-100 dark:border-white/10',
         'transition-all duration-300',
-        'hover:shadow-lg hover:-translate-y-1',
-        'focus-within:ring-2',
+        'hover:shadow-xl hover:-translate-y-2',
+        'hover:border-primary/20 dark:hover:border-primary/30',
+        'focus-within:ring-2 focus-within:ring-primary/50',
       )}
-      style={{
-        borderColor: 'var(--color-gray-200)',
-        // Ring color on focus-within via CSS variable
-      }}
     >
       {/* Ícono */}
       <div
         className={cn(
           'flex h-12 w-12 items-center justify-center rounded-xl',
-          'transition-colors duration-300 group-hover:opacity-90',
+          'transition-all duration-300',
+          'group-hover:scale-110 group-hover:shadow-md',
         )}
-        style={{ backgroundColor: 'rgba(17, 34, 187, 0.08)' }}
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--color-primary) 8%, transparent)',
+        }}
         aria-hidden="true"
       >
         <Icono
@@ -165,6 +128,7 @@ function TrabajoCardItem({ trabajo }: CardProps): React.ReactElement {
 // ─── Componente principal exportado ───────────────────────────────────────
 
 export function Portfolio(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <section
       id="trabajos"
@@ -189,7 +153,7 @@ export function Portfolio(): React.ReactElement {
             className="mb-4 text-sm font-semibold uppercase tracking-widest"
             style={{ color: 'var(--color-primary)' }}
           >
-            Fundamentos
+            {t.portfolio.label}
           </motion.p>
 
           <motion.h2
@@ -198,7 +162,7 @@ export function Portfolio(): React.ReactElement {
             className="mb-6 text-3xl font-bold md:text-4xl"
             style={{ color: 'var(--color-dark)' }}
           >
-            Nuestros Trabajos
+            {t.portfolio.title}
           </motion.h2>
 
           <motion.div
@@ -216,9 +180,15 @@ export function Portfolio(): React.ReactElement {
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          {TRABAJOS.map((trabajo) => (
-            <TrabajoCardItem key={trabajo.titulo} trabajo={trabajo} />
-          ))}
+          {t.portfolio.cards.map((card, i) => {
+            const Icono = ICONS[i];
+            return (
+              <TrabajoCardItem
+                key={i}
+                trabajo={{ icono: Icono, titulo: card.title, descripcion: card.description }}
+              />
+            );
+          })}
         </motion.div>
       </div>
     </section>

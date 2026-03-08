@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
+import { ThemeToggle } from '@/components/ui/ThemeToggle'
+import { LanguageToggle } from '@/components/ui/LanguageToggle'
+import { useI18n } from '@/i18n'
 
 const WHATSAPP_LINK =
   'https://wa.me/573169535314?text=Hola,%20me%20interesa%20saber%20más%20sobre%20sus%20servicios%20de%20desarrollo%20de%20software'
@@ -11,14 +15,6 @@ interface NavLink {
   label: string
   href: string
 }
-
-const NAV_LINKS: NavLink[] = [
-  { label: 'Inicio', href: '#inicio' },
-  { label: 'Servicios', href: '#servicios' },
-  { label: 'Trabajos', href: '#trabajos' },
-  { label: 'Academia', href: '#academia' },
-  { label: 'Contacto', href: '#contacto' },
-]
 
 // Variantes de animación para el menú móvil
 const mobileMenuVariants = {
@@ -52,8 +48,18 @@ const mobileLinkVariants = {
 }
 
 export function Navbar() {
+  const { t } = useI18n()
+  const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const navLinks: NavLink[] = [
+    { label: t.nav.inicio, href: '/' },
+    { label: t.nav.servicios, href: '/servicios' },
+    { label: t.nav.trabajos, href: '/trabajos' },
+    { label: t.nav.academia, href: '/academia' },
+    { label: t.nav.contacto, href: '/contacto' },
+  ]
 
   // Detectar scroll para cambiar el fondo del navbar
   useEffect(() => {
@@ -77,6 +83,11 @@ export function Navbar() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  // Cerrar menú móvil al cambiar de ruta
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [location.pathname])
+
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev)
 
   const handleNavLinkClick = () => {
@@ -89,15 +100,15 @@ export function Navbar() {
         'fixed top-0 left-0 right-0 z-50',
         'transition-all duration-300 ease-in-out',
         isScrolled
-          ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-black/20 border-b border-white/5'
+          ? 'bg-dark/80 backdrop-blur-xl shadow-2xl shadow-black/30 border-b border-white/10'
           : 'bg-transparent'
       )}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between">
           {/* Logo */}
-          <a
-            href="#inicio"
+          <Link
+            to="/"
             className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
             aria-label="SPEAK.CO - Ir al inicio"
           >
@@ -105,28 +116,32 @@ export function Navbar() {
               SPEAK.CO
               <span className="text-accent">®</span>
             </span>
-          </a>
+          </Link>
 
           {/* Links de navegación — desktop */}
           <ul className="hidden md:flex items-center gap-1 lg:gap-2" role="list">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className={cn(
-                    'px-3 py-2 rounded-md text-sm font-medium',
-                    'text-gray-300 hover:text-white',
-                    'transition-colors duration-200',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white'
-                  )}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.href
+              return (
+                <li key={link.href}>
+                  <Link
+                    to={link.href}
+                    className={cn(
+                      'px-3 py-2 rounded-md text-sm font-medium',
+                      'transition-colors duration-200',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+                      isActive ? 'text-white' : 'text-gray-300 hover:text-white'
+                    )}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
 
-          {/* CTA desktop + botón hamburguesa mobile */}
+          {/* CTA desktop + toggle de tema + botón hamburguesa mobile */}
           <div className="flex items-center gap-3">
             <Button
               asChild
@@ -137,8 +152,14 @@ export function Navbar() {
               rel="noopener noreferrer"
               className="hidden md:inline-flex"
             >
-              Agendar
+              {t.nav.agendar}
             </Button>
+
+            {/* Toggle de tema — visible en todos los tamaños */}
+            <ThemeToggle />
+
+            {/* Toggle de idioma — visible en todos los tamaños */}
+            <LanguageToggle />
 
             {/* Botón hamburguesa — solo mobile */}
             <button
@@ -195,22 +216,28 @@ export function Navbar() {
             className="md:hidden overflow-hidden bg-dark/98 backdrop-blur-md border-t border-white/5"
           >
             <nav className="px-4 pt-3 pb-6 space-y-1" aria-label="Menú móvil">
-              {NAV_LINKS.map((link) => (
-                <motion.div key={link.href} variants={mobileLinkVariants}>
-                  <a
-                    href={link.href}
-                    onClick={handleNavLinkClick}
-                    className={cn(
-                      'block px-4 py-3 rounded-lg text-base font-medium',
-                      'text-gray-300 hover:text-white hover:bg-white/8',
-                      'transition-colors duration-200',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white'
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                </motion.div>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = location.pathname === link.href
+                return (
+                  <motion.div key={link.href} variants={mobileLinkVariants}>
+                    <Link
+                      to={link.href}
+                      onClick={handleNavLinkClick}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={cn(
+                        'block px-4 py-3 rounded-lg text-base font-medium',
+                        'transition-colors duration-200',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+                        isActive
+                          ? 'text-white bg-white/8'
+                          : 'text-gray-300 hover:text-white hover:bg-white/8'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                )
+              })}
 
               <motion.div variants={mobileLinkVariants} className="pt-2">
                 <Button
@@ -223,7 +250,7 @@ export function Navbar() {
                   className="w-full"
                   onClick={handleNavLinkClick}
                 >
-                  Agendar consulta
+                  {t.nav.agendar}
                 </Button>
               </motion.div>
             </nav>

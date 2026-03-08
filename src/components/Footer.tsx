@@ -1,12 +1,8 @@
 import { Mail, Phone, MapPinned } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 // ─── Tipos ─────────────────────────────────────────────────────────────────
-
-interface EnlaceNavegacion {
-  label: string;
-  href: string;
-}
 
 interface Oficina {
   ciudad: string;
@@ -20,14 +16,6 @@ interface ContactoLinea {
 }
 
 // ─── Datos estáticos ────────────────────────────────────────────────────────
-
-const ENLACES_SERVICIOS: EnlaceNavegacion[] = [
-  { label: 'Soluciones de Ingeniería', href: '#servicios' },
-  { label: 'Sector Minero', href: '#servicios' },
-  { label: 'Educación', href: '#servicios' },
-  { label: 'Industria del Entretenimiento', href: '#servicios' },
-  { label: 'Sectores Comerciales', href: '#servicios' },
-];
 
 const OFICINAS: Oficina[] = [
   {
@@ -68,6 +56,7 @@ const CONTACTO_LINEAS: ContactoLinea[] = [
 // ─── Sub-componentes de columnas ───────────────────────────────────────────
 
 function ColumnaEmpresa(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div className="flex flex-col gap-4">
       {/* Logo textual */}
@@ -77,28 +66,30 @@ function ColumnaEmpresa(): React.ReactElement {
         className="text-sm leading-relaxed"
         style={{ color: 'var(--color-gray-400)' }}
       >
-        Ingeniería de software a medida
+        {t.footer.tagline}
       </p>
 
       <p
         className="text-sm leading-relaxed"
         style={{ color: 'var(--color-gray-400)' }}
       >
-        Lunes a viernes de 6:00 a.m. a 6:00 p.m.
+        {t.footer.schedule}
       </p>
     </div>
   );
 }
 
 function ColumnaServicios(): React.ReactElement {
+  const { t } = useI18n();
+  const enlaces = t.footer.serviceLinks.map((label) => ({ label, href: '#servicios' }));
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-sm font-semibold uppercase tracking-widest text-white">
-        Servicios
+        {t.footer.servicesTitle}
       </h3>
       <nav aria-label="Servicios de SPEAK.CO">
         <ul className="flex flex-col gap-3">
-          {ENLACES_SERVICIOS.map((enlace) => (
+          {enlaces.map((enlace) => (
             <li key={enlace.label}>
               <a
                 href={enlace.href}
@@ -119,10 +110,11 @@ function ColumnaServicios(): React.ReactElement {
 }
 
 function ColumnaOficinas(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-sm font-semibold uppercase tracking-widest text-white">
-        Oficinas
+        {t.footer.officesTitle}
       </h3>
       <ul className="flex flex-col gap-5">
         {OFICINAS.map((oficina) => (
@@ -151,10 +143,11 @@ function ColumnaOficinas(): React.ReactElement {
 }
 
 function ColumnaContacto(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div className="flex flex-col gap-4">
       <h3 className="text-sm font-semibold uppercase tracking-widest text-white">
-        Contacto
+        {t.footer.contactTitle}
       </h3>
       <ul className="flex flex-col gap-3">
         {CONTACTO_LINEAS.map((linea) => {
@@ -232,6 +225,7 @@ function ColumnaContacto(): React.ReactElement {
 // ─── Barra de copyright ────────────────────────────────────────────────────
 
 function BarraCopyright(): React.ReactElement {
+  const { t } = useI18n();
   return (
     <div
       className="mt-12 border-t py-6 text-center"
@@ -241,7 +235,7 @@ function BarraCopyright(): React.ReactElement {
         className="text-sm"
         style={{ color: 'var(--color-gray-400)' }}
       >
-        © 2017 – 2026 SPEAK.CO® Todos los derechos reservados.
+        {t.footer.copyright}
       </p>
     </div>
   );
@@ -255,7 +249,9 @@ export function Footer(): React.ReactElement {
       id="contacto"
       aria-label="Pie de página y contacto"
       className="px-6 pt-16"
-      style={{ backgroundColor: 'var(--color-dark)' }}
+      style={{
+        background: 'linear-gradient(180deg, var(--color-dark) 0%, #050810 100%)',
+      }}
     >
       <div className="mx-auto max-w-7xl">
         {/* Grid de columnas */}

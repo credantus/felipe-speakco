@@ -2,19 +2,22 @@
 
 import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 interface ValuePropositionProps {
   className?: string;
 }
 
 export function ValueProposition({ className }: ValuePropositionProps) {
+  const { t } = useI18n()
+
   return (
     <section
       id="propuesta"
       className={cn('relative z-10 -mt-20 px-4 pb-20', className)}
     >
       <motion.div
-        className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl px-8 py-14 md:px-16 md:py-20"
+        className="max-w-4xl mx-auto rounded-3xl shadow-2xl px-8 py-14 md:px-16 md:py-20 border border-white/20 backdrop-blur-xl bg-white/80 dark:bg-dark/60 dark:border-white/10"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -29,7 +32,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
         >
-          Una idea, un desarrollo.
+          {t.value.label}
         </motion.p>
 
         {/* Título principal */}
@@ -40,7 +43,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.25 }}
         >
-          Pensar es la diferencia.
+          {t.value.title}
         </motion.h2>
 
         {/* Párrafo descriptivo */}
@@ -51,11 +54,9 @@ export function ValueProposition({ className }: ValuePropositionProps) {
           viewport={{ once: true }}
           transition={{ duration: 0.55, delay: 0.35 }}
         >
-          La creación de un buen software empieza con el primer paso: el
-          pensamiento. En{' '}
-          <span className="font-semibold text-dark">SPEAK.CO® Studio</span>{' '}
-          diseñamos soluciones que transforman ideas en productos digitales de
-          alto impacto.
+          {t.value.description}{' '}
+          <span className="font-semibold text-dark">{t.value.studio}</span>{' '}
+          {t.value.descriptionEnd}
         </motion.p>
 
         {/* CTA */}
@@ -75,7 +76,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
               'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
             )}
           >
-            Trabaja con nosotros
+            {t.value.cta}
             <svg
               aria-hidden="true"
               width="18"

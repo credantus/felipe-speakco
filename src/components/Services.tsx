@@ -11,6 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useI18n } from '@/i18n';
 
 interface ServiceCard {
   icon: LucideIcon;
@@ -18,44 +19,7 @@ interface ServiceCard {
   description: string;
 }
 
-const SERVICES: ServiceCard[] = [
-  {
-    icon: Palette,
-    title: 'Diseño',
-    description:
-      'Desarrollo de software a medida con análisis previo de funcionalidad, arquitectura e implementación en tecnologías front-end y back-end.',
-  },
-  {
-    icon: Code2,
-    title: 'Desarrollo',
-    description:
-      'Sistemas escalables con seguridad informática SSL/SSH, servidores web, APIs, tokens e implementación de algoritmos de IA para entornos web y móviles.',
-  },
-  {
-    icon: Layers,
-    title: 'Modelo',
-    description:
-      'Modelos de software a medida con escalabilidad de rendimiento y actualización de infraestructura back-end que responden a sistemas de alta disponibilidad.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Expansión y Rentabilidad',
-    description:
-      'Orientación directa a la solución: aplicaciones a medida para crecimiento exponencial, consolidación de datos y escalabilidad tecnológica.',
-  },
-  {
-    icon: Users,
-    title: 'Equipo a Medida',
-    description:
-      'Equipo dedicado por proyecto: desarrolladores, diseñadores y Project Manager con tiempos definidos, entregables por fase y metodología ágil.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Testing y QA',
-    description:
-      'Depuración de código, análisis de rendimiento, optimización de tiempos de carga y ejecución en despliegues móviles, web y servidor.',
-  },
-];
+const ICONS: LucideIcon[] = [Palette, Code2, Layers, TrendingUp, Users, ShieldCheck];
 
 const containerVariants = {
   hidden: {},
@@ -89,9 +53,11 @@ function ServiceCardItem({ card }: ServiceCardProps) {
     <motion.article
       variants={cardVariants}
       className={cn(
-        'bg-white rounded-2xl p-8',
-        'shadow-sm hover:shadow-lg',
-        'transition-shadow duration-300',
+        'rounded-2xl p-8',
+        'backdrop-blur-sm bg-white/90 dark:bg-white/5',
+        'border border-gray-100 dark:border-white/10',
+        'shadow-sm hover:shadow-xl hover:-translate-y-1',
+        'transition-all duration-300',
         'flex flex-col gap-5',
       )}
     >
@@ -126,10 +92,12 @@ interface ServicesProps {
 }
 
 export function Services({ className }: ServicesProps) {
+  const { t } = useI18n()
+
   return (
     <section
       id="servicios"
-      className={cn('bg-light py-20 px-4', className)}
+      className={cn('py-20 px-4 bg-gradient-to-b from-gray-50 to-white dark:from-dark dark:to-dark-secondary', className)}
     >
       <div className="max-w-6xl mx-auto">
         {/* Encabezado de sección */}
@@ -141,10 +109,10 @@ export function Services({ className }: ServicesProps) {
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
-            Lo que hacemos
+            {t.services.label}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-dark">
-            Nuestra Estructura
+            {t.services.title}
           </h2>
         </motion.div>
 
@@ -156,9 +124,15 @@ export function Services({ className }: ServicesProps) {
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          {SERVICES.map((card) => (
-            <ServiceCardItem key={card.title} card={card} />
-          ))}
+          {t.services.cards.map((card, i) => {
+            const Icon = ICONS[i]
+            return (
+              <ServiceCardItem
+                key={i}
+                card={{ icon: Icon, title: card.title, description: card.description }}
+              />
+            )
+          })}
         </motion.div>
       </div>
     </section>

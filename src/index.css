@@ -30,6 +30,34 @@
   --animate-slide-up: slide-up 0.6s ease-out;
 }
 
+/* ─── Dark mode overrides ────────────────────────────────────────────────────
+   Las secciones Hero, Diferencial y Footer usan --color-dark y --color-dark-secondary,
+   que NO se modifican aquí: se mantienen igual en ambos modos.
+   Solo cambian las variables de "fondos claros" y "textos sobre blanco".
+──────────────────────────────────────────────────────────────────────────── */
+
+html.dark {
+  /* Fondos claros → fondos oscuros */
+  --color-light: #1A1D28;
+  --color-white: #0F1219;
+
+  /* Escala de grises invertida para texto y superficies */
+  --color-gray-100: #1A1D28;
+  --color-gray-200: #2A2D38;
+  --color-gray-300: #3A3D48;
+  --color-gray-400: #6B7280;
+  --color-gray-500: #9CA3AF;
+  --color-gray-600: #D1D5DB;
+  --color-gray-700: #E5E7EB;
+  --color-gray-800: #F3F4F6;
+  --color-gray-900: #F8F9FC;
+}
+
+html.dark body {
+  background-color: var(--color-white);
+  color: var(--color-gray-600);
+}
+
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -38,6 +66,22 @@
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Glassmorphism utilities ────────────────────────────────────────────── */
+
+.glass {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-light {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 @layer base {
