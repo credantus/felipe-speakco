@@ -34,6 +34,18 @@ const ICONS: LucideIcon[] = [
   BarChart3,
 ];
 
+// Gradientes coloridos inspirados en el sitio original
+const CARD_GRADIENTS = [
+  'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+  'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+  'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+  'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+  'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+  'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+  'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
+  'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+];
+
 // ─── Variantes de animación ────────────────────────────────────────────────
 
 const containerVariants = {
@@ -69,16 +81,17 @@ const headerVariants = {
 
 interface CardProps {
   trabajo: TrabajoCard;
+  gradient: string;
 }
 
-function TrabajoCardItem({ trabajo }: CardProps): React.ReactElement {
+function TrabajoCardItem({ trabajo, gradient }: CardProps): React.ReactElement {
   const Icono = trabajo.icono;
 
   return (
     <motion.article
       variants={cardVariants}
       className={cn(
-        'group flex flex-col gap-4 rounded-2xl border p-6',
+        'group relative flex flex-col gap-4 rounded-2xl border p-6 overflow-hidden',
         'bg-white dark:bg-white/5',
         'border-gray-100 dark:border-white/10',
         'transition-all duration-300',
@@ -87,22 +100,27 @@ function TrabajoCardItem({ trabajo }: CardProps): React.ReactElement {
         'focus-within:ring-2 focus-within:ring-primary/50',
       )}
     >
-      {/* Ícono */}
+      {/* Barra de gradiente superior */}
+      <div
+        className="absolute top-0 left-0 right-0 h-1 opacity-60 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: gradient }}
+        aria-hidden="true"
+      />
+
+      {/* Ícono con gradiente de fondo */}
       <div
         className={cn(
           'flex h-12 w-12 items-center justify-center rounded-xl',
           'transition-all duration-300',
-          'group-hover:scale-110 group-hover:shadow-md',
+          'group-hover:scale-110 group-hover:shadow-lg',
         )}
-        style={{
-          backgroundColor: 'color-mix(in srgb, var(--color-primary) 8%, transparent)',
-        }}
+        style={{ background: gradient, opacity: 0.9 }}
         aria-hidden="true"
       >
         <Icono
           size={24}
           strokeWidth={1.75}
-          style={{ color: 'var(--color-primary)' }}
+          className="text-white"
         />
       </div>
 
@@ -186,6 +204,7 @@ export function Portfolio(): React.ReactElement {
               <TrabajoCardItem
                 key={i}
                 trabajo={{ icono: Icono, titulo: card.title, descripcion: card.description }}
+                gradient={CARD_GRADIENTS[i]}
               />
             );
           })}

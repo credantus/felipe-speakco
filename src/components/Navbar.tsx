@@ -112,10 +112,11 @@ export function Navbar() {
             className="flex-shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
             aria-label="SPEAK.CO - Ir al inicio"
           >
-            <span className="text-xl md:text-2xl font-bold text-white tracking-tight">
-              SPEAK.CO
-              <span className="text-accent">®</span>
-            </span>
+            <img
+              src="/images/logo.png"
+              alt="SPEAK.CO®"
+              className="h-8 md:h-10 w-auto"
+            />
           </Link>
 
           {/* Links de navegación — desktop */}
