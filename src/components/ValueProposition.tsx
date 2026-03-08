@@ -40,6 +40,13 @@ export function ValueProposition({ className }: ValuePropositionProps) {
       id="propuesta"
       className={cn('relative z-10 -mt-24 px-4 pb-24', className)}
     >
+      {/* Orbes de color de fondo — le dan vida al glassmorphism */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-32 left-[15%] w-[600px] h-[600px] rounded-full bg-primary/[0.15] dark:bg-primary/[0.20] blur-[100px]" />
+        <div className="absolute top-20 right-[10%] w-[500px] h-[500px] rounded-full bg-accent/[0.12] dark:bg-accent/[0.15] blur-[80px]" />
+        <div className="absolute -bottom-32 left-[40%] w-[450px] h-[450px] rounded-full bg-primary-light/[0.10] dark:bg-primary-light/[0.12] blur-[90px]" />
+      </div>
+
       <motion.div
         className="relative max-w-6xl mx-auto"
         variants={containerVariants}
@@ -51,12 +58,13 @@ export function ValueProposition({ className }: ValuePropositionProps) {
         <div className={cn(
           'relative rounded-3xl overflow-hidden',
           'shadow-2xl shadow-primary/10',
-          'border border-white/30 dark:border-white/10',
+          'border border-white/40 dark:border-white/[0.12]',
+          'backdrop-blur-2xl',
+          'bg-white/40 dark:bg-white/[0.06]',
         )}>
-          {/* Fondo con gradiente sutil */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white via-white to-primary/5 dark:from-dark dark:via-dark dark:to-primary/10" />
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-primary/8 to-transparent rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-accent/8 to-transparent rounded-full blur-3xl" />
+          {/* Manchas de color internas para profundidad */}
+          <div className="pointer-events-none absolute -top-10 -right-10 w-[450px] h-[450px] bg-gradient-to-bl from-primary/15 to-transparent rounded-full blur-3xl" aria-hidden="true" />
+          <div className="pointer-events-none absolute -bottom-10 -left-10 w-[350px] h-[350px] bg-gradient-to-tr from-accent/12 to-transparent rounded-full blur-3xl" aria-hidden="true" />
 
           {/* Contenido */}
           <div className="relative px-8 py-14 md:px-16 md:py-20">
@@ -158,12 +166,14 @@ export function ValueProposition({ className }: ValuePropositionProps) {
                           key={i}
                           className={cn(
                             'flex items-center gap-4 px-6 py-4 rounded-2xl',
-                            'bg-white/70 dark:bg-white/[0.08]',
-                            'border border-white/50 dark:border-white/[0.12]',
-                            'backdrop-blur-sm',
-                            'shadow-lg shadow-black/5',
+                            'bg-white/35 dark:bg-white/[0.08]',
+                            'border border-white/50 dark:border-white/[0.15]',
+                            'backdrop-blur-2xl',
+                            'shadow-lg shadow-primary/[0.06] dark:shadow-black/20',
+                            'ring-1 ring-white/30 dark:ring-white/5',
                             'transition-all duration-300',
-                            'hover:shadow-xl hover:-translate-y-0.5',
+                            'hover:bg-white/55 dark:hover:bg-white/[0.12]',
+                            'hover:shadow-xl hover:-translate-y-1',
                           )}
                           initial={{ opacity: 0, x: 40 }}
                           whileInView={{ opacity: 1, x: 0 }}
