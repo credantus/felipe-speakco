@@ -82,12 +82,13 @@ function TrabajoCardItem({ trabajo, gradient }: CardProps): React.ReactElement {
     <motion.article
       variants={cardVariants}
       className={cn(
-        'group relative flex flex-col gap-4 rounded-2xl border p-6 overflow-hidden',
-        'bg-white dark:bg-white/[0.08]',
-        'border-gray-100 dark:border-white/[0.12]',
+        'group relative flex flex-col gap-4 rounded-2xl p-6 overflow-hidden',
+        'backdrop-blur-xl bg-white/45 dark:bg-white/[0.06]',
+        'border border-white/50 dark:border-white/[0.12]',
+        'shadow-lg shadow-primary/[0.04] dark:shadow-black/20',
+        'ring-1 ring-white/30 dark:ring-white/5',
         'transition-all duration-300',
-        'hover:shadow-xl hover:-translate-y-2',
-        'hover:border-primary/20 dark:hover:border-primary/30',
+        'hover:shadow-xl hover:-translate-y-2 hover:bg-white/60 dark:hover:bg-white/[0.10]',
         'focus-within:ring-2 focus-within:ring-primary/50',
       )}
     >
@@ -136,10 +137,17 @@ export function Portfolio(): React.ReactElement {
     <section
       id="trabajos"
       aria-labelledby="trabajos-titulo"
-      className="px-6 py-24"
+      className="relative px-6 py-24 overflow-hidden"
       style={{ backgroundColor: 'var(--color-light)' }}
     >
-      <div className="mx-auto max-w-7xl">
+      {/* Orbes de color de fondo para glassmorphism */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -top-32 right-[10%] w-[550px] h-[550px] rounded-full bg-primary/[0.08] dark:bg-primary/[0.15] blur-[100px]" />
+        <div className="absolute top-1/3 -left-20 w-[450px] h-[450px] rounded-full bg-accent/[0.07] dark:bg-accent/[0.12] blur-[80px]" />
+        <div className="absolute -bottom-40 right-[30%] w-[500px] h-[500px] rounded-full bg-primary-light/[0.06] dark:bg-primary-light/[0.10] blur-[90px]" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl">
         {/* Grid de tarjetas */}
         <motion.div
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"

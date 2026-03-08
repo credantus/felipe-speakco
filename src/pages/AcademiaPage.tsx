@@ -16,9 +16,16 @@ export function AcademiaPage() {
   const { t } = useI18n()
 
   return (
-    <div style={{ backgroundColor: 'var(--color-dark)' }} className="min-h-screen">
+    <div style={{ backgroundColor: 'var(--color-dark)' }} className="relative min-h-screen overflow-hidden">
+      {/* Orbes de color de fondo para glassmorphism */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute top-20 left-[10%] w-[600px] h-[600px] rounded-full bg-primary/[0.12] blur-[120px]" />
+        <div className="absolute top-[40%] right-[5%] w-[500px] h-[500px] rounded-full bg-accent/[0.08] blur-[100px]" />
+        <div className="absolute bottom-20 left-[30%] w-[450px] h-[450px] rounded-full bg-primary-light/[0.10] blur-[90px]" />
+      </div>
+
       {/* Header de página */}
-      <section className="flex flex-col items-center justify-center text-center px-6 pt-32 pb-16">
+      <section className="relative flex flex-col items-center justify-center text-center px-6 pt-32 pb-16">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,7 +55,7 @@ export function AcademiaPage() {
       </section>
 
       {/* Grid de cursos */}
-      <section className="px-6 pb-24">
+      <section className="relative px-6 pb-24">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {t.academia.courses.map((course, i) => (
@@ -58,18 +65,12 @@ export function AcademiaPage() {
                 initial="hidden"
                 animate="visible"
                 variants={cardVariants}
-                className="group relative rounded-2xl p-8 overflow-hidden cursor-default"
-                style={{
-                  background:
-                    'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(12px)',
-                }}
+                className="group relative rounded-2xl p-8 overflow-hidden cursor-default backdrop-blur-xl bg-white/[0.06] border border-white/[0.10] shadow-lg shadow-black/20 ring-1 ring-white/5 transition-all duration-300 hover:bg-white/[0.10] hover:shadow-xl hover:-translate-y-1"
               >
                 {/* Borde accent al hacer hover */}
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                  style={{ border: '1px solid var(--color-accent)', opacity: 0 }}
+                  style={{ border: '1px solid var(--color-accent)' }}
                   aria-hidden="true"
                 />
 
@@ -111,12 +112,7 @@ export function AcademiaPage() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-16 rounded-2xl p-10 text-center"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(220,241,40,0.08) 0%, rgba(220,241,40,0.02) 100%)',
-              border: '1px solid rgba(220,241,40,0.2)',
-            }}
+            className="mt-16 rounded-2xl p-10 text-center backdrop-blur-xl bg-accent/[0.06] border border-accent/[0.15] shadow-lg shadow-black/20 ring-1 ring-accent/5"
           >
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
               {t.academia.ctaTitle}

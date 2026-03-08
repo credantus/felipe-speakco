@@ -54,9 +54,11 @@ function ServiceCardItem({ card }: ServiceCardProps) {
       variants={cardVariants}
       className={cn(
         'rounded-2xl p-8',
-        'backdrop-blur-sm bg-white/90 dark:bg-white/[0.08]',
-        'border border-gray-100 dark:border-white/[0.12]',
-        'shadow-sm hover:shadow-xl hover:-translate-y-1',
+        'backdrop-blur-xl bg-white/45 dark:bg-white/[0.06]',
+        'border border-white/50 dark:border-white/[0.12]',
+        'shadow-lg shadow-primary/[0.04] dark:shadow-black/20',
+        'ring-1 ring-white/30 dark:ring-white/5',
+        'hover:shadow-xl hover:-translate-y-1 hover:bg-white/60 dark:hover:bg-white/[0.10]',
         'transition-all duration-300',
         'flex flex-col gap-5',
       )}
@@ -97,9 +99,17 @@ export function Services({ className }: ServicesProps) {
   return (
     <section
       id="servicios"
-      className={cn('py-20 px-4 bg-gradient-to-b from-gray-50 to-white dark:from-dark dark:to-dark-secondary', className)}
+      className={cn('relative py-20 px-4 overflow-hidden', className)}
+      style={{ backgroundColor: 'var(--color-light)' }}
     >
-      <div className="max-w-6xl mx-auto">
+      {/* Orbes de color de fondo */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -top-40 -left-20 w-[500px] h-[500px] rounded-full bg-primary/[0.08] dark:bg-primary/[0.15] blur-[100px]" />
+        <div className="absolute top-1/2 -right-20 w-[400px] h-[400px] rounded-full bg-accent/[0.07] dark:bg-accent/[0.10] blur-[80px]" />
+        <div className="absolute -bottom-32 left-1/3 w-[450px] h-[450px] rounded-full bg-primary-light/[0.06] dark:bg-primary-light/[0.10] blur-[90px]" />
+      </div>
+
+      <div className="relative max-w-6xl mx-auto">
         {/* Encabezado de sección */}
         <motion.div
           className="text-center mb-14"

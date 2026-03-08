@@ -94,9 +94,16 @@ function DiferencialBlock(): React.ReactElement {
 function TecnologiaBlock(): React.ReactElement {
   const { t } = useI18n();
   return (
-    <div className="bg-white dark:bg-dark px-6 py-24">
+    <div className="relative px-6 py-24 overflow-hidden" style={{ backgroundColor: 'var(--color-light)' }}>
+      {/* Orbes de color de fondo para glassmorphism */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute -top-32 left-[20%] w-[500px] h-[500px] rounded-full bg-accent/[0.08] dark:bg-accent/[0.15] blur-[100px]" />
+        <div className="absolute top-1/2 -right-16 w-[400px] h-[400px] rounded-full bg-primary/[0.07] dark:bg-primary/[0.12] blur-[80px]" />
+        <div className="absolute -bottom-24 left-[10%] w-[450px] h-[450px] rounded-full bg-primary-light/[0.06] dark:bg-primary-light/[0.10] blur-[90px]" />
+      </div>
+
       <motion.div
-        className="mx-auto max-w-3xl text-center"
+        className="relative mx-auto max-w-3xl text-center"
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
@@ -143,7 +150,7 @@ function TecnologiaBlock(): React.ReactElement {
             <motion.div
               key={pilar.icon}
               variants={fadeInUp}
-              className="rounded-2xl border p-6 text-left backdrop-blur-sm bg-white/80 dark:bg-white/[0.08] border-gray-200 dark:border-white/[0.12] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              className="rounded-2xl p-6 text-left backdrop-blur-xl bg-white/45 dark:bg-white/[0.06] border border-white/50 dark:border-white/[0.12] shadow-lg shadow-primary/[0.04] dark:shadow-black/20 ring-1 ring-white/30 dark:ring-white/5 hover:shadow-xl hover:bg-white/60 dark:hover:bg-white/[0.10] transition-all duration-300 hover:-translate-y-1"
             >
               <div
                 className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold text-white"

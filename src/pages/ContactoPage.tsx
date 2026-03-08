@@ -27,9 +27,16 @@ export function ContactoPage() {
   const { t } = useI18n()
 
   return (
-    <div style={{ backgroundColor: 'var(--color-dark)' }} className="min-h-screen">
+    <div style={{ backgroundColor: 'var(--color-dark)' }} className="relative min-h-screen overflow-hidden">
+      {/* Orbes de color de fondo para glassmorphism */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="absolute top-10 right-[15%] w-[550px] h-[550px] rounded-full bg-primary/[0.12] blur-[120px]" />
+        <div className="absolute top-[50%] -left-10 w-[450px] h-[450px] rounded-full bg-accent/[0.08] blur-[100px]" />
+        <div className="absolute bottom-10 right-[25%] w-[400px] h-[400px] rounded-full bg-primary-light/[0.10] blur-[90px]" />
+      </div>
+
       {/* Header */}
-      <section className="flex flex-col items-center justify-center text-center px-6 pt-32 pb-16">
+      <section className="relative flex flex-col items-center justify-center text-center px-6 pt-32 pb-16">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,7 +66,7 @@ export function ContactoPage() {
       </section>
 
       {/* Contenido principal — formulario + info */}
-      <section className="px-6 pb-24">
+      <section className="relative px-6 pb-24">
         <div className="mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
 
           {/* Formulario con glassmorphism */}
@@ -67,13 +74,7 @@ export function ContactoPage() {
             initial={{ opacity: 0, x: -24 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="rounded-2xl p-8 md:p-10"
-            style={{
-              background:
-                'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              backdropFilter: 'blur(16px)',
-            }}
+            className="rounded-2xl p-8 md:p-10 backdrop-blur-xl bg-white/[0.06] border border-white/[0.10] shadow-lg shadow-black/20 ring-1 ring-white/5"
           >
             <h2 className="text-xl font-bold text-white mb-8">{t.contact.formTitle}</h2>
 
@@ -183,12 +184,7 @@ export function ContactoPage() {
           >
             {/* Card de datos de contacto */}
             <div
-              className="rounded-2xl p-8"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(220,241,40,0.06) 0%, rgba(220,241,40,0.01) 100%)',
-                border: '1px solid rgba(220,241,40,0.15)',
-              }}
+              className="rounded-2xl p-8 backdrop-blur-xl bg-accent/[0.06] border border-accent/[0.12] shadow-lg shadow-black/20 ring-1 ring-accent/5"
             >
               <h3 className="text-base font-bold text-white mb-6 uppercase tracking-widest text-xs"
                   style={{ color: 'var(--color-accent)' }}>
@@ -263,12 +259,7 @@ export function ContactoPage() {
 
             {/* Oficinas */}
             <div
-              className="rounded-2xl p-8"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%)',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}
+              className="rounded-2xl p-8 backdrop-blur-xl bg-white/[0.06] border border-white/[0.10] shadow-lg shadow-black/20 ring-1 ring-white/5"
             >
               <h3
                 className="text-xs font-bold uppercase tracking-widest mb-6"
