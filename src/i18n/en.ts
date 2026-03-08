@@ -40,6 +40,9 @@ export const en = {
     descriptionEnd:
       'we design solutions that transform ideas into high-impact digital products.',
     cta: 'Work with us',
+    pillar1: 'Innovation',
+    pillar2: 'Strategy',
+    pillar3: 'Execution',
   },
 
   services: {
@@ -160,6 +163,11 @@ export const en = {
   academia: {
     title: 'SPEAK.CO® Academy',
     subtitle: 'High-level training for tech professionals',
+    comingSoon: 'Coming Soon',
+    ctaTitle: 'Ready to grow professionally?',
+    ctaDesc:
+      'Join our waitlist and be the first to access SPEAK.CO® training programs.',
+    ctaButton: 'Join the waitlist',
     courses: [
       {
         title: 'Full Stack Web Development',
@@ -187,11 +195,15 @@ export const en = {
   contact: {
     title: 'Contact Us',
     subtitle: "Tell us about your project and we'll respond within 24 hours.",
+    formTitle: 'Tell us about your project',
     name: 'Full name',
     email: 'Email address',
     company: 'Company',
     message: 'Tell us about your project',
     send: 'Send message',
+    directContact: 'Direct contact',
+    offices: 'Offices',
+    whatsapp: 'Message us on WhatsApp',
   },
 
   footer: {

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Paleta SPEAK.CO - mejorada */
   --color-primary: #1122BB;
@@ -37,24 +39,23 @@
 ──────────────────────────────────────────────────────────────────────────── */
 
 html.dark {
-  /* Fondos claros → fondos oscuros */
+  /* Fondos claros → fondos oscuros (--color-white NO se toca: text-white siempre es blanco real) */
   --color-light: #1A1D28;
-  --color-white: #0F1219;
 
-  /* Escala de grises invertida para texto y superficies */
+  /* Escala de grises para dark mode: de superficies oscuras a texto claro */
   --color-gray-100: #1A1D28;
   --color-gray-200: #2A2D38;
-  --color-gray-300: #3A3D48;
-  --color-gray-400: #6B7280;
+  --color-gray-300: #4A4D58;
+  --color-gray-400: #8B929E;
   --color-gray-500: #9CA3AF;
-  --color-gray-600: #D1D5DB;
+  --color-gray-600: #C4C9D4;
   --color-gray-700: #E5E7EB;
   --color-gray-800: #F3F4F6;
   --color-gray-900: #F8F9FC;
 }
 
 html.dark body {
-  background-color: var(--color-white);
+  background-color: #0F1219;
   color: var(--color-gray-600);
 }
 

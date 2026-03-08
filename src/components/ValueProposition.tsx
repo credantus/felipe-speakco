@@ -84,8 +84,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
                 {/* Título con gradient accent */}
                 <motion.h2
                   variants={itemVariants}
-                  className="text-3xl md:text-5xl font-extrabold leading-tight mb-6"
-                  style={{ color: 'var(--color-dark)' }}
+                  className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900 dark:text-white"
                 >
                   {t.value.title.split('.')[0]}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-light">.</span>
@@ -103,8 +102,7 @@ export function ValueProposition({ className }: ValuePropositionProps) {
                 {/* Párrafo descriptivo mejorado */}
                 <motion.p
                   variants={itemVariants}
-                  className="text-base md:text-lg leading-relaxed max-w-xl mb-10"
-                  style={{ color: 'var(--color-gray-500)' }}
+                  className="text-base md:text-lg leading-relaxed max-w-xl mb-10 text-gray-500 dark:text-gray-400"
                 >
                   {t.value.description}{' '}
                   <span className={cn(
@@ -154,18 +152,14 @@ export function ValueProposition({ className }: ValuePropositionProps) {
                   <div className="relative flex flex-col gap-4">
                     {pillars.map((pillar, i) => {
                       const Icon = pillar.icon;
-                      const labels = [
-                        { es: 'Innovación', en: 'Innovation' },
-                        { es: 'Estrategia', en: 'Strategy' },
-                        { es: 'Ejecución', en: 'Execution' },
-                      ];
+                      const pillarLabels = [t.value.pillar1, t.value.pillar2, t.value.pillar3];
                       return (
                         <motion.div
                           key={i}
                           className={cn(
                             'flex items-center gap-4 px-6 py-4 rounded-2xl',
-                            'bg-white/70 dark:bg-white/5',
-                            'border border-white/50 dark:border-white/10',
+                            'bg-white/70 dark:bg-white/[0.08]',
+                            'border border-white/50 dark:border-white/[0.12]',
                             'backdrop-blur-sm',
                             'shadow-lg shadow-black/5',
                             'transition-all duration-300',
@@ -187,10 +181,10 @@ export function ValueProposition({ className }: ValuePropositionProps) {
                             <Icon size={20} className="text-white" strokeWidth={2} />
                           </div>
                           <div>
-                            <p className="text-sm font-bold" style={{ color: 'var(--color-dark)' }}>
-                              {labels[i].es}
+                            <p className="text-sm font-bold text-gray-900 dark:text-white">
+                              {pillarLabels[i]}
                             </p>
-                            <p className="text-xs" style={{ color: 'var(--color-gray-500)' }}>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                               SPEAK.CO® Core
                             </p>
                           </div>

@@ -20,7 +20,7 @@ export function LanguageToggle({ className, darkText = false }: LanguageTogglePr
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
         darkText
           ? 'text-gray-500 hover:text-primary hover:bg-primary/5'
-          : 'text-gray-300 hover:text-white hover:bg-white/10',
+          : 'text-white/60 hover:text-white hover:bg-white/10',
         className,
       )}
     >

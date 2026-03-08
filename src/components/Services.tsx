@@ -54,8 +54,8 @@ function ServiceCardItem({ card }: ServiceCardProps) {
       variants={cardVariants}
       className={cn(
         'rounded-2xl p-8',
-        'backdrop-blur-sm bg-white/90 dark:bg-white/5',
-        'border border-gray-100 dark:border-white/10',
+        'backdrop-blur-sm bg-white/90 dark:bg-white/[0.08]',
+        'border border-gray-100 dark:border-white/[0.12]',
         'shadow-sm hover:shadow-xl hover:-translate-y-1',
         'transition-all duration-300',
         'flex flex-col gap-5',
@@ -75,12 +75,12 @@ function ServiceCardItem({ card }: ServiceCardProps) {
       </div>
 
       {/* Título */}
-      <h3 className="text-base md:text-lg font-semibold text-dark leading-snug">
+      <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white leading-snug">
         {card.title}
       </h3>
 
       {/* Descripción */}
-      <p className="text-sm md:text-base text-gray-500 leading-relaxed">
+      <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed">
         {card.description}
       </p>
     </motion.article>
@@ -111,7 +111,7 @@ export function Services({ className }: ServicesProps) {
           <p className="text-sm font-semibold tracking-widest uppercase text-primary mb-3">
             {t.services.label}
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-dark">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             {t.services.title}
           </h2>
         </motion.div>

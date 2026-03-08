@@ -136,7 +136,7 @@ export function Navbar() {
                           : 'text-gray-600 hover:text-primary hover:bg-primary/5'
                         : isActive
                           ? 'text-white'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10',
+                          : 'text-white/70 hover:text-white hover:bg-white/10',
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
@@ -189,7 +189,7 @@ export function Navbar() {
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary',
                 useDarkText
                   ? 'text-gray-600 hover:text-primary hover:bg-primary/5'
-                  : 'text-gray-300 hover:text-white hover:bg-white/10',
+                  : 'text-white/70 hover:text-white hover:bg-white/10',
               )}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -257,7 +257,7 @@ export function Navbar() {
                             : 'text-gray-700 hover:text-primary hover:bg-primary/5'
                           : isActive
                             ? 'text-white bg-white/8'
-                            : 'text-gray-300 hover:text-white hover:bg-white/8',
+                            : 'text-white/70 hover:text-white hover:bg-white/8',
                       )}
                     >
                       {link.label}

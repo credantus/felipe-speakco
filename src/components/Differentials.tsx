@@ -80,8 +80,7 @@ function DiferencialBlock(): React.ReactElement {
         {/* Párrafo descriptivo */}
         <motion.p
           variants={fadeInUp}
-          className="text-lg leading-relaxed"
-          style={{ color: 'var(--color-gray-300)' }}
+          className="text-lg leading-relaxed text-white/70"
         >
           {t.differentials.description}
         </motion.p>
@@ -95,7 +94,7 @@ function DiferencialBlock(): React.ReactElement {
 function TecnologiaBlock(): React.ReactElement {
   const { t } = useI18n();
   return (
-    <div className="bg-white px-6 py-24">
+    <div className="bg-white dark:bg-dark px-6 py-24">
       <motion.div
         className="mx-auto max-w-3xl text-center"
         variants={staggerContainer}
@@ -115,8 +114,7 @@ function TecnologiaBlock(): React.ReactElement {
         {/* Título principal */}
         <motion.h2
           variants={fadeInUp}
-          className="mb-6 text-3xl font-bold md:text-4xl"
-          style={{ color: 'var(--color-dark)' }}
+          className="mb-6 text-3xl font-bold md:text-4xl text-gray-900 dark:text-white"
         >
           {t.differentials.efficiencyTitle}
         </motion.h2>
@@ -131,8 +129,7 @@ function TecnologiaBlock(): React.ReactElement {
         {/* Párrafo descriptivo */}
         <motion.p
           variants={fadeInUp}
-          className="text-lg leading-relaxed"
-          style={{ color: 'var(--color-gray-600)' }}
+          className="text-lg leading-relaxed text-gray-600 dark:text-gray-400"
         >
           {t.differentials.efficiencyDesc}
         </motion.p>
@@ -146,10 +143,7 @@ function TecnologiaBlock(): React.ReactElement {
             <motion.div
               key={pilar.icon}
               variants={fadeInUp}
-              className="rounded-2xl border p-6 text-left backdrop-blur-sm bg-white/80 dark:bg-white/5 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              style={{
-                borderColor: 'var(--color-gray-200)',
-              }}
+              className="rounded-2xl border p-6 text-left backdrop-blur-sm bg-white/80 dark:bg-white/[0.08] border-gray-200 dark:border-white/[0.12] hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
             >
               <div
                 className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl text-lg font-bold text-white"
@@ -158,16 +152,10 @@ function TecnologiaBlock(): React.ReactElement {
               >
                 {pilar.icon}
               </div>
-              <h3
-                className="mb-2 text-base font-semibold"
-                style={{ color: 'var(--color-dark)' }}
-              >
+              <h3 className="mb-2 text-base font-semibold text-gray-900 dark:text-white">
                 {pilar.title}
               </h3>
-              <p
-                className="text-sm leading-relaxed"
-                style={{ color: 'var(--color-gray-500)' }}
-              >
+              <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
                 {pilar.description}
               </p>
             </motion.div>

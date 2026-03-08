@@ -99,7 +99,7 @@ export function AcademiaPage() {
                     className="text-xs font-semibold uppercase tracking-widest"
                     style={{ color: 'var(--color-accent)' }}
                   >
-                    Próximamente
+                    {t.academia.comingSoon}
                   </span>
                 </div>
               </motion.article>
@@ -119,11 +119,10 @@ export function AcademiaPage() {
             }}
           >
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              ¿Listo para crecer profesionalmente?
+              {t.academia.ctaTitle}
             </h2>
             <p className="text-base mb-8 max-w-xl mx-auto" style={{ color: 'var(--color-gray-400)' }}>
-              Únete a nuestra lista de espera y sé el primero en acceder a los programas de formación de
-              SPEAK.CO®.
+              {t.academia.ctaDesc}
             </p>
             <a
               href="mailto:sales@speakcoeu.com"
@@ -133,7 +132,7 @@ export function AcademiaPage() {
                 color: 'var(--color-dark)',
               }}
             >
-              Registrarme en lista de espera →
+              {t.academia.ctaButton} →
             </a>
           </motion.div>
         </div>

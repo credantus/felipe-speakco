@@ -68,15 +68,6 @@ const cardVariants = {
   },
 };
 
-const headerVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
 // ─── Sub-componente: tarjeta individual ────────────────────────────────────
 
 interface CardProps {
@@ -92,8 +83,8 @@ function TrabajoCardItem({ trabajo, gradient }: CardProps): React.ReactElement {
       variants={cardVariants}
       className={cn(
         'group relative flex flex-col gap-4 rounded-2xl border p-6 overflow-hidden',
-        'bg-white dark:bg-white/5',
-        'border-gray-100 dark:border-white/10',
+        'bg-white dark:bg-white/[0.08]',
+        'border-gray-100 dark:border-white/[0.12]',
         'transition-all duration-300',
         'hover:shadow-xl hover:-translate-y-2',
         'hover:border-primary/20 dark:hover:border-primary/30',
@@ -126,16 +117,10 @@ function TrabajoCardItem({ trabajo, gradient }: CardProps): React.ReactElement {
 
       {/* Contenido */}
       <div className="flex flex-col gap-2">
-        <h3
-          className="text-base font-semibold leading-snug"
-          style={{ color: 'var(--color-dark)' }}
-        >
+        <h3 className="text-base font-semibold leading-snug text-gray-900 dark:text-white">
           {trabajo.titulo}
         </h3>
-        <p
-          className="text-sm leading-relaxed"
-          style={{ color: 'var(--color-gray-500)' }}
-        >
+        <p className="text-sm leading-relaxed text-gray-500 dark:text-gray-400">
           {trabajo.descripcion}
         </p>
       </div>
@@ -155,41 +140,6 @@ export function Portfolio(): React.ReactElement {
       style={{ backgroundColor: 'var(--color-light)' }}
     >
       <div className="mx-auto max-w-7xl">
-        {/* Cabecera */}
-        <motion.div
-          className="mb-14 text-center"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.14 } },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-80px' }}
-        >
-          <motion.p
-            variants={headerVariants}
-            className="mb-4 text-sm font-semibold uppercase tracking-widest"
-            style={{ color: 'var(--color-primary)' }}
-          >
-            {t.portfolio.label}
-          </motion.p>
-
-          <motion.h2
-            id="trabajos-titulo"
-            variants={headerVariants}
-            className="mb-6 text-3xl font-bold md:text-4xl"
-            style={{ color: 'var(--color-dark)' }}
-          >
-            {t.portfolio.title}
-          </motion.h2>
-
-          <motion.div
-            variants={headerVariants}
-            className="mx-auto h-1 w-16 rounded-full"
-            style={{ backgroundColor: 'var(--color-accent)' }}
-          />
-        </motion.div>
-
         {/* Grid de tarjetas */}
         <motion.div
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4"

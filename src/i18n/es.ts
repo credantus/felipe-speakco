@@ -40,6 +40,9 @@ export const es = {
     descriptionEnd:
       'diseñamos soluciones que transforman ideas en productos digitales de alto impacto.',
     cta: 'Trabaja con nosotros',
+    pillar1: 'Innovación',
+    pillar2: 'Estrategia',
+    pillar3: 'Ejecución',
   },
 
   services: {
@@ -160,6 +163,11 @@ export const es = {
   academia: {
     title: 'Academia SPEAK.CO®',
     subtitle: 'Formación de alto nivel para profesionales tecnológicos',
+    comingSoon: 'Próximamente',
+    ctaTitle: '¿Listo para crecer profesionalmente?',
+    ctaDesc:
+      'Únete a nuestra lista de espera y sé el primero en acceder a los programas de formación de SPEAK.CO®.',
+    ctaButton: 'Registrarme en lista de espera',
     courses: [
       {
         title: 'Desarrollo Web Full Stack',
@@ -187,11 +195,15 @@ export const es = {
   contact: {
     title: 'Contáctenos',
     subtitle: 'Cuéntenos sobre su proyecto y le responderemos en menos de 24 horas.',
+    formTitle: 'Cuéntenos sobre su proyecto',
     name: 'Nombre completo',
     email: 'Correo electrónico',
     company: 'Empresa',
     message: 'Cuéntenos sobre su proyecto',
     send: 'Enviar mensaje',
+    directContact: 'Contacto directo',
+    offices: 'Oficinas',
+    whatsapp: 'Escribirnos por WhatsApp',
   },
 
   footer: {
